@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kerala Beach Getaway - 3-4 Days</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2196F3;
+            --secondary: #00BCD4;
+            --accent: #FF9800;
+            --success: #4CAF50;
+            --bg-light: #f5f9fc;
+            --bg-white: #ffffff;
+            --text-dark: #1a1a1a;
+            --text-gray: #666;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --shadow-lg: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--bg-white);
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #00b4db 0%, #0083b0 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+
+        .tabs {
+            display: flex;
+            background: var(--bg-light);
+            border-bottom: 2px solid #e0e0e0;
+            overflow-x: auto;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-gray);
+            transition: all 0.3s ease;
+            min-width: 150px;
+        }
+
+        .tab:hover {
+            background: rgba(33, 150, 243, 0.1);
+        }
+
+        .tab.active {
+            color: var(--primary);
+            background: white;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .day-card {
+            background: var(--bg-light);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 5px solid var(--primary);
+            box-shadow: var(--shadow);
+            transition: transform 0.2s ease;
+        }
+
+        .day-card:hover {
+            transform: translateX(5px);
+        }
+
+        .day-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .timeline {
+            margin-top: 15px;
+        }
+
+        .timeline-item {
+            padding: 15px;
+            margin: 10px 0;
+            background: white;
+            border-radius: 10px;
+            border-left: 3px solid var(--secondary);
+        }
+
+        .timeline-item strong {
+            color: var(--secondary);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .budget-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .budget-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        .budget-card h4 {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .budget-card .amount {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .packing-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .packing-category {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .packing-category h4 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .packing-item {
+            padding: 10px;
+            background: white;
+            margin: 8px 0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .packing-item:hover {
+            transform: translateX(5px);
+            box-shadow: var(--shadow);
+        }
+
+        .packing-item input[type="checkbox"] {
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .packing-item.checked {
+            opacity: 0.6;
+            text-decoration: line-through;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .info-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-card li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .info-card li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .highlight {
+            background: var(--accent);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        .map-placeholder {
+            background: var(--bg-light);
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            margin-top: 20px;
+            border: 2px dashed var(--primary);
+        }
+
+        .map-placeholder a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .map-placeholder a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            background: var(--text-dark);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab {
+                border-bottom: 1px solid #e0e0e0;
+            }
+
+            .budget-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌴 Kerala Beach Getaway 🌊</h1>
+            <p>Your Perfect 3-4 Day Relaxation Escape</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('itinerary')">📅 Itinerary</button>
+            <button class="tab" onclick="showTab('budget')">💰 Budget</button>
+            <button class="tab" onclick="showTab('packing')">🎒 Packing List</button>
+            <button class="tab" onclick="showTab('tips')">💡 Travel Tips</button>
+        </div>
+
+        <div class="content">
+            <!-- Itinerary Tab -->
+            <div id="itinerary" class="tab-content active">
+                <div class="day-card">
+                    <h3>Day 1: Arrival in Kovalam 🏖️</h3>
+                    <p>Start your Kerala beach escape in the famous Kovalam, known for its crescent-shaped beaches and relaxed vibe.</p>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <strong>Morning (10:00 AM)</strong>
+                            Arrive at Trivandrum International Airport. Transfer to Kovalam (30 mins drive).
+                        </div>
+                        <div class="timeline-item">
+                            <strong>Afternoon (12:00 PM)</strong>
+                            Check into your beachfront resort. Lunch at hotel with fresh seafood.
+                        </div>
+                        <div class="timeline-item">
+                            <strong>Evening (4:00 PM)</strong>
+                            Relax at <span class="highlight">Lighthouse Beach</span>. Watch the sunset from the iconic lighthouse.
+                        </div>
+                        <div class="timeline-item">
+                            <strong>Night (7:30 PM)</strong>
+                            Dinner at a beach shack. Try Kerala-style fish curry and appam.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="day-card">
+                    <h3>Day 2: Beach Day & Ayurveda 🧘</h3>
+                    <p>Immerse yourself in beach relaxation and traditional Kerala wellness.</p>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <strong>Morning (7:00 AM)</strong>
+                            Sunrise yoga on the beach. Breakfast by the sea.
+                        </div>
+                        <div class="timeline-item">
+                            <strong>Late Morning (10:00 AM)</strong>
+                            <span class="highlight">Ayurvedic Spa Treatment</span> - Try a traditional Kerala massage (Abhyanga).
+                        </div>
+                        <div class="timeline-item">
+                            <strong>Afternoon (1:00 PM)</strong>
+                            Lunch at hotel. Free time to swim, sunbathe, or read by the pool.
+                        </div>
+                        <div class="timeline-item">
+                            <strong>Evening (5:00 PM)</strong>
+                            Visit <span class="highlight">Hawa Beach</span> and <span class="highlight">Samudra Beach</span>. Evening beach walk.
+                        </div>
+                        <div class="timeline-item">
+                            <strong>Night (8:00 PM)</strong>
+                            Seafood dinner at German Bakery or Beach Hotel.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="day-card">
+                    <h3>Day 3: Varkala - The Cliff Beach 🌅</h3>
+                    <p>Day trip to Varkala, a stunning cliff-side beach town with a bohemian atmosphere.</p>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <strong>Morning (8:00 AM)</strong>
+                            Drive to Varkala (1.5 hours). Check into cliff-side accommodation.
+                        </div>
+                        <div class="timeline-item">
+                            <strong>Late Morning (10:30 AM)</strong>
+                            Explore <span class="highlight">Varkala Cliff</span> - cafes, shops, and stunning views.
+                        </div>
+                        <div class="timeline-item">
+                            <strong>Afternoon (12:00 PM)</strong>
+                            Lunch at Darjeeling Cafe or Clafouti. Relax at <span class="highlight">Papanasam Beach</span>.
+                        </div>
+                        <div class="timeline-item">
+                            <strong>Evening (5:00 PM)</strong>
+                            Visit <span class="highlight">Janardhana Swamy Temple</span> (2000 years old). Sunset from the cliff.
+                        </div>
+                        <div class="timeline-item">
+                            <strong>Night (7:30 PM)</strong>
+                            Dinner at a cliff restaurant with ocean views. Try fresh grilled fish.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="day-card">
+                    <h3>Day 4: Leisure & Departure ✈️</h3>
+                    <p>Final relaxation before heading home with memories of Kerala's coastal beauty.</p>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <strong>Morning (7:00 AM)</strong>
+                            Early morning beach walk. Breakfast at a cliff cafe.
+                        </div>
+                        <div class="timeline-item">
+                            <strong>Late Morning (10:00 AM)</strong>
+                            Shopping for souvenirs - Kerala spices, handicrafts, Ayurvedic products.
+                        </div>
+                        <div class="timeline-item">
+                            <strong>Afternoon (12:00 PM)</strong>
+                            Check out. Lunch on the way. Drive to Trivandrum Airport (1.5 hours).
+                        </div>
+                        <div class="timeline-item">
+                            <strong>Evening (3:00 PM onwards)</strong>
+                            Departure from Trivandrum Airport. Safe travels! 🌴
+                        </div>
+                    </div>
+                </div>
+
+                <div class="map-placeholder">
+                    <p>📍 <strong>Route:</strong> Trivandrum Airport → Kovalam → Varkala → Trivandrum Airport</p>
+                    <p style="margin-top: 15px;">
+                        <a href="https://www.google.com/maps/dir/Trivandrum+International+Airport/Kovalam+Beach/Varkala+Beach/Trivandrum+International+Airport" target="_blank">
+                            🗺️ View Full Route on Google Maps
+                        </a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Budget Tab -->
+            <div id="budget" class="tab-content">
+                <div class="budget-grid">
+                    <div class="budget-card">
+                        <h4>Accommodation (3 nights)</h4>
+                        <div class="amount">₹9,000</div>
+                        <p style="margin-top: 10px; font-size: 0.9rem;">Beach resort in Kovalam + Cliff view in Varkala</p>
+                    </div>
+                    <div class="budget-card">
+                        <h4>Food & Dining</h4>
+                        <div class="amount">₹4,500</div>
+                        <p style="margin-top: 10px; font-size: 0.9rem;">Fresh seafood, local cuisine, cafe meals</p>
+                    </div>
+                    <div class="budget-card">
+                        <h4>Transportation</h4>
+                        <div class="amount">₹3,000</div>
+                        <p style="margin-top: 10px; font-size: 0.9rem;">Airport transfers, cab to Varkala, local travel</p>
+                    </div>
+                    <div class="budget-card">
+                        <h4>Activities & Spa</h4>
+                        <div class="amount">₹4,000</div>
+                        <p style="margin-top: 10px; font-size: 0.9rem;">Ayurvedic massage, yoga, water sports (optional)</p>
+                    </div>
+                    <div class="budget-card">
+                        <h4>Shopping & Misc</h4>
+                        <div class="amount">₹2,500</div>
+                        <p style="margin-top: 10px; font-size: 0.9rem;">Souvenirs, spices, handicrafts, tips</p>
+                    </div>
+                    <div class="budget-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        <h4>Total Estimated Budget</h4>
+                        <div class="amount">₹23,000</div>
+                        <p style="margin-top: 10px; font-size: 0.9rem;">Per person for 3-4 days</p>
+                    </div>
+                </div>
+
+                <div class="info-card" style="margin-top: 30px;">
+                    <h3>💡 Budget Tips</h3>
+                    <ul>
+                        <li>Book accommodations in advance for better rates</li>
+                        <li>Eat at local restaurants instead of hotel restaurants to save money</li>
+                        <li>Negotiate with taxi drivers or use ride-sharing apps</li>
+                        <li>Visit during off-season (June-September) for lower prices</li>
+                        <li>Many beaches are free - enjoy nature without spending!</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Packing List Tab -->
+            <div id="packing" class="tab-content">
+                <div class="packing-list">
+                    <div class="packing-category">
+                        <h4>👕 Clothing</h4>
+                        <div class="packing-item" onclick="togglePacking(this)">
+                            <input type="checkbox">
+                            <span>Light cotton clothes</span>
+                        </div>
+                        <div class="packing-item" onclick="togglePacking(this)">
+                            <input type="checkbox">
+                            <span>Swimwear (2-3)</span>
+                        </div>
+                        <div class="packing-item" onclick="togglePacking(this)">
+                            <input type="checkbox">
+                            <span>Beach cover-ups</span>
+                        </div>
+                        <div class="packing-item" onclick="togglePacking(this)">
+                            <input type="checkbox">
+                            <span>Comfortable sandals</span>
+                        </div>
+                        <div class="packing-item" onclick="togglePacking(this)">
+                            <input type="checkbox">
+                            <span>Sun hat or cap</span>
+                        </div>
+                        <div class="packing-item" onclick="togglePacking(this)">
+                            <input type="checkbox">
+                            <span>Light jacket (evening)</span>
+                        </div>
+                    </div>
+
+                    <div class="packing-category">
+                        <h4>🌞 Beach Essentials</h4>
+                        <div class="packing-item" onclick="togglePacking(this)">
+                            <input type="checkbox">
+                            <span>Sunscreen (SPF 50+)</span>
+                        </div>
+                        <div class="packing-item" onclick="togglePacking(this)">
+                            <input type="checkbox">
+                            <span>Sunglasses</span>
+                        </div>
+                        <div class="packing-item" onclick="togglePacking(this)">
+                            <input type="checkbox">
+                            <span>Beach towel</span>
+                        </div>
+                        <div class="packing-item" onclick="togglePacking(this)">
+                            <input type="checkbox">
+                            <span>Waterproof phone case</span>
+                        </div>
+                        <div class="packing-item" onclick="togglePacking(this)">
+                            <input type="checkbox">
+                            <span>Beach bag</span>
+                        </div>
+                        <div class="packing-item" onclick="togglePacking(this)">
+                            <input type="checkbox">
+                            <span>Flip flops</span>
+                        </div>
+                    </div>
+
+                    <div class="packing-category">
+                        <h4>💊 Health & Hygiene</h4>
+                        <div class="packing-item" onclick="togglePacking(this)">
+                            <input type="checkbox">
+                            <span>Mosquito repellent</span>
+                        </div>
+                        <div class="packing-item" onclick="togglePacking(this)">
+                            <input type="checkbox">
+                            <span>Basic first aid kit</span>
+                        </div>
+                        <div class="packing-item" onclick="togglePacking(this)">
+                            <input type="checkbox">
+                            <span>Medications (personal)</span>
+                        </div>
+                        <div class="packing-item" onclick="togglePacking(this)">
+                            <input type="checkbox">
+                            <span>Hand sanitizer</span>
+                        </div>
+                        <div class="packing-item" onclick="togglePacking(this)">
+                            <input type="checkbox">
+                            <span>Toiletries</span>
+                        </div>
+                    </div>
+
+                    <div class="packing-category">
+                        <h4>📱 Tech & Documents</h4>
+                        <div class="packing-item" onclick="togglePacking(this)">
+                            <input type="checkbox">
+                            <span>Phone & charger</span>
+                        </div>
+                        <div class="packing-item" onclick="togglePacking(this)">
+                            <input type="checkbox">
+                            <span>Camera (optional)</span>
+                        </div>
+                        <div class="packing-item" onclick="togglePacking(this)">
+                            <input type="checkbox">
+                            <span>Power bank</span>
+                        </div>
+                        <div class="packing-item" onclick="togglePacking(this)">
+                            <input type="checkbox">
+                            <span>ID proof & bookings</span>
+                        </div>
+                        <div class="packing-item" onclick="togglePacking(this)">
+                            <input type="checkbox">
+                            <span>Travel insurance</span>
+                        </div>
+                    </div>
+
+                    <div class="packing-category">
+                        <h4>🎒 Miscellaneous</h4>
+                        <div class="packing-item" onclick="togglePacking(this)">
+                            <input type="checkbox">
+                            <span>Reusable water bottle</span>
+                        </div>
+                        <div class="packing-item" onclick="togglePacking(this)">
+                            <input type="checkbox">
+                            <span>Snacks for travel</span>
+                        </div>
+                        <div class="packing-item" onclick="togglePacking(this)">
+                            <input type="checkbox">
+                            <span>Book or e-reader</span>
+                        </div>
+                        <div class="packing-item" onclick="togglePacking(this)">
+                            <input type="checkbox">
+                            <span>Ziplock bags</span>
+                        </div>
+                        <div class="packing-item" onclick="togglePacking(this)">
+                            <input type="checkbox">
+                            <span>Cash (small notes)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tips Tab -->
+            <div id="tips" class="tab-content">
+                <div class="info-card">
+                    <h3>🌊 Best Time to Visit</h3>
+                    <ul>
+                        <li><strong>October to March:</strong> Perfect weather, calm seas, ideal for beach activities</li>
+                        <li><strong>April to May:</strong> Hot and humid, but less crowded and cheaper</li>
+                        <li><strong>June to September:</strong> Monsoon season - great for Ayurveda, rough seas</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h3>🍽️ Must-Try Kerala Food</h3>
+                    <ul>
+                        <li>Kerala Fish Curry (Meen Curry) with rice or appam</li>
+                        <li>Prawns Fry / Karimeen Pollichathu (Pearl Spot Fish)</li>
+                        <li>Puttu and Kadala Curry (breakfast specialty)</li>
+                        <li>Fresh coconut water and tender coconut</li>
+                        <li>Banana chips and Kerala-style tea</li>
+                        <li>Payasam (sweet dessert) - try at local restaurants</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h3>⚠️ Important Tips</h3>
+                    <ul>
+                        <li>Respect local culture - Kerala is conservative; dress modestly away from beaches</li>
+                        <li>Stay hydrated - carry water, especially during beach walks</li>
+                        <li>Swim only in designated areas with lifeguards present</li>
+                        <li>Bargain at local markets - it's expected and part of the culture</li>
+                        <li>Try to learn a few Malayalam phrases - locals appreciate it!</li>
+                        <li>Book Ayurvedic treatments from certified centers only</li>
+                        <li>Keep emergency numbers handy: Police (100), Ambulance (108)</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h3>🏨 Accommodation Recommendations</h3>
+                    <ul>
+                        <li><strong>Budget:</strong> Beach hostels, guesthouses (₹1500-2500/night)</li>
+                        <li><strong>Mid-range:</strong> Beach resorts, boutique hotels (₹3000-5000/night)</li>
+                        <li><strong>Luxury:</strong> 5-star beachfront resorts (₹8000+/night)</li>
+                        <li>Book cliff-view rooms in Varkala for stunning ocean views</li>
+                        <li>Many places offer package deals with meals and spa treatments</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h3>📞 Useful Contacts</h3>
+                    <ul>
+                        <li><strong>Kerala Tourism:</strong> 1-800-425-4747 (toll-free)</li>
+                        <li><strong>Tourist Police:</strong> +91-471-232-1111</li>
+                        <li><strong>Trivandrum Railway Station:</strong> +91-471-232-3066</li>
+                        <li><strong>Airport Enquiry:</strong> +91-471-250-1870</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h3>✨ Pro Tips for Relaxation</h3>
+                    <ul>
+                        <li>Wake up early for peaceful beach walks and stunning sunrises</li>
+                        <li>Schedule your Ayurvedic massage in the morning for full-day relaxation</li>
+                        <li>Find a quiet beach spot with a good book - ultimate chill</li>
+                        <li>Try meditation or yoga sessions offered by beachside resorts</li>
+                        <li>Don't over-schedule - leave room for spontaneous beach time</li>
+                        <li>Unplug from work emails and truly disconnect</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>🌴 Have an amazing Kerala beach getaway! 🌊</p>
+        <p style="margin-top: 10px; font-size: 0.9rem; opacity: 0.8;">Created with ❤️ for your perfect relaxation escape</p>
+    </footer>
+
+    <script>
+        function showTab(tabName) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+
+        function togglePacking(element) {
+            const checkbox = element.querySelector('input[type="checkbox"]');
+            checkbox.checked = !checkbox.checked;
+            element.classList.toggle('checked');
+        }
+
+        // Add smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
